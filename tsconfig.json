@@ -11,6 +11,6 @@
       "@/generated": ["./generated/index.ts"]
     }
   },
-  "include": ["./**/*.ts"],
+  "include": ["./**/*.ts", "auto-gen/index.js"],
   "exclude": ["node_modules"]
 }
