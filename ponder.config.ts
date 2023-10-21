@@ -10,6 +10,70 @@ export const config: Config = {
     },
   ],
   filters: [{
+    name: "ERC20Votes_Ownable",
+    network: "mainnet",
+    abi: "/Users/dennisonbertram/Develop/auto-ponder/abis/ERC20Votes_Ownable.json",
+    filter: {
+      event: parseAbiItem("event Approval(address indexed owner, address indexed spender, uint256 value)")
+    }
+  },
+  {
+    name: "ERC20Votes_Ownable",
+    network: "mainnet",
+    abi: "/Users/dennisonbertram/Develop/auto-ponder/abis/ERC20Votes_Ownable.json",
+    filter: {
+      event: parseAbiItem("event DelegateChanged(address indexed delegator, address indexed fromDelegate, address indexed toDelegate)")
+    }
+  },
+  {
+    name: "ERC20Votes_Ownable",
+    network: "mainnet",
+    abi: "/Users/dennisonbertram/Develop/auto-ponder/abis/ERC20Votes_Ownable.json",
+    filter: {
+      event: parseAbiItem("event DelegateVotesChanged(address indexed delegate, uint256 previousVotes, uint256 newVotes)")
+    }
+  },
+  {
+    name: "ERC20Votes_Ownable",
+    network: "mainnet",
+    abi: "/Users/dennisonbertram/Develop/auto-ponder/abis/ERC20Votes_Ownable.json",
+    filter: {
+      event: parseAbiItem("event EIP712DomainChanged()")
+    }
+  },
+  {
+    name: "ERC20Votes_Ownable",
+    network: "mainnet",
+    abi: "/Users/dennisonbertram/Develop/auto-ponder/abis/ERC20Votes_Ownable.json",
+    filter: {
+      event: parseAbiItem("event OwnershipTransferred(address indexed previousOwner, address indexed newOwner)")
+    }
+  },
+  {
+    name: "ERC20Votes_Ownable",
+    network: "mainnet",
+    abi: "/Users/dennisonbertram/Develop/auto-ponder/abis/ERC20Votes_Ownable.json",
+    filter: {
+      event: parseAbiItem("event Paused(address account)")
+    }
+  },
+  {
+    name: "ERC20Votes_Ownable",
+    network: "mainnet",
+    abi: "/Users/dennisonbertram/Develop/auto-ponder/abis/ERC20Votes_Ownable.json",
+    filter: {
+      event: parseAbiItem("event Transfer(address indexed from, address indexed to, uint256 value)")
+    }
+  },
+  {
+    name: "ERC20Votes_Ownable",
+    network: "mainnet",
+    abi: "/Users/dennisonbertram/Develop/auto-ponder/abis/ERC20Votes_Ownable.json",
+    filter: {
+      event: parseAbiItem("event Unpaused(address account)")
+    }
+  },
+  {
     name: "OZGovernor",
     network: "mainnet",
     abi: "/Users/dennisonbertram/Develop/auto-ponder/abis/OZGovernor.json",

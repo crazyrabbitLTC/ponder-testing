@@ -1,5 +1,19 @@
 [
   {
+    "fileName": "ERC20Votes_Ownable.json",
+    "filePath": "/Users/dennisonbertram/Develop/auto-ponder/abis/ERC20Votes_Ownable.json",
+    "eventSignatures": [
+      "event Approval(address indexed owner, address indexed spender, uint256 value)",
+      "event DelegateChanged(address indexed delegator, address indexed fromDelegate, address indexed toDelegate)",
+      "event DelegateVotesChanged(address indexed delegate, uint256 previousVotes, uint256 newVotes)",
+      "event EIP712DomainChanged()",
+      "event OwnershipTransferred(address indexed previousOwner, address indexed newOwner)",
+      "event Paused(address account)",
+      "event Transfer(address indexed from, address indexed to, uint256 value)",
+      "event Unpaused(address account)"
+    ]
+  },
+  {
     "fileName": "OZGovernor.json",
     "filePath": "/Users/dennisonbertram/Develop/auto-ponder/abis/OZGovernor.json",
     "eventSignatures": [
@@ -15,6 +29,20 @@
       "event VoteCastWithParams(address indexed voter, uint256 proposalId, uint8 support, uint256 weight, string reason, bytes params)",
       "event VotingDelaySet(uint256 oldVotingDelay, uint256 newVotingDelay)",
       "event VotingPeriodSet(uint256 oldVotingPeriod, uint256 newVotingPeriod)"
+    ]
+  },
+  {
+    "fileName": "Timelock.json",
+    "filePath": "/Users/dennisonbertram/Develop/auto-ponder/abis/Timelock.json",
+    "eventSignatures": [
+      "event CallExecuted(bytes32 indexed id, uint256 indexed index, address target, uint256 value, bytes data)",
+      "event CallSalt(bytes32 indexed id, bytes32 salt)",
+      "event CallScheduled(bytes32 indexed id, uint256 indexed index, address target, uint256 value, bytes data, bytes32 predecessor, uint256 delay)",
+      "event Cancelled(bytes32 indexed id)",
+      "event MinDelayChange(uint256 oldDuration, uint256 newDuration)",
+      "event RoleAdminChanged(bytes32 indexed role, bytes32 indexed previousAdminRole, bytes32 indexed newAdminRole)",
+      "event RoleGranted(bytes32 indexed role, address indexed account, address indexed sender)",
+      "event RoleRevoked(bytes32 indexed role, address indexed account, address indexed sender)"
     ]
   }
 ]

@@ -191,3 +191,72 @@ type VotingPeriodSet_EVENT @entity {
   oldVotingPeriod: BigInt!
   newVotingPeriod: BigInt!
 }
+
+
+# AllEvents.graphql
+
+type Approval_EVENT @entity {
+  id: String!
+  owner: Address!
+  spender: Address!
+  value: BigInt!
+  block: Block_entry!
+  transaction: Transaction_entry!
+  log: Log_entry!
+}
+
+type DelegateChanged_EVENT @entity {
+  id: String!
+  delegator: Address!
+  fromDelegate: Address!
+  toDelegate: Address!
+  block: Block_entry!
+  transaction: Transaction_entry!
+  log: Log_entry!
+}
+
+type DelegateVotesChanged_EVENT @entity {
+  id: String!
+  delegate: Address!
+  previousVotes: BigInt!
+  newVotes: BigInt!
+  block: Block_entry!
+  transaction: Transaction_entry!
+  log: Log_entry!
+}
+
+
+type OwnershipTransferred_EVENT @entity {
+  id: String!
+  previousOwner: Address!
+  newOwner: Address!
+  block: Block_entry!
+  transaction: Transaction_entry!
+  log: Log_entry!
+}
+
+type Paused_EVENT @entity {
+  id: String!
+  account: Address!
+  block: Block_entry!
+  transaction: Transaction_entry!
+  log: Log_entry!
+}
+
+type Transfer_EVENT @entity {
+  id: String!
+  from: Address!
+  to: Address!
+  value: BigInt!
+  block: Block_entry!
+  transaction: Transaction_entry!
+  log: Log_entry!
+}
+
+type Unpaused_EVENT @entity {
+  id: String!
+  account: Address!
+  block: Block_entry!
+  transaction: Transaction_entry!
+  log: Log_entry!
+}
