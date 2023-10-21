@@ -1,5 +1,5 @@
 import { ponder } from "@/generated";
-import { createCommonEntities } from "./utils";
+import { createCommonEntities } from "../../utils";
 
 export function registerApprovalEvent() {
   ponder.on("ERC20Votes_Ownable:Approval", async ({ event, context }) => {

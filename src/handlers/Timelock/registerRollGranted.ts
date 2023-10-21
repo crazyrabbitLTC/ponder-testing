@@ -1,5 +1,5 @@
 import { ponder } from "@/generated";
-import { createCommonEntities } from "./utils";
+import { createCommonEntities } from "../../utils";
 
 export function registerRoleGrantedEvent() {
   ponder.on("Timelock:RoleGranted", async ({ event, context }) => {

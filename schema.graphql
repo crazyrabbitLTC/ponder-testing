@@ -42,6 +42,7 @@ type Transaction_entry @entity {
 
 type Address @entity {
   id: String!
+  isContract: Boolean
   transactions: [Transaction_entry!]! @derivedFrom(field: "from")
 }
 
