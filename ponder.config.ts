@@ -169,5 +169,69 @@ export const config: Config = {
       event: parseAbiItem("event VotingPeriodSet(uint256 oldVotingPeriod, uint256 newVotingPeriod)")
     }
   },
+  {
+    name: "Timelock",
+    network: "mainnet",
+    abi: "/Users/dennisonbertram/Develop/auto-ponder/abis/Timelock.json",
+    filter: {
+      event: parseAbiItem("event CallExecuted(bytes32 indexed id, uint256 indexed index, address target, uint256 value, bytes data)")
+    }
+  },
+  {
+    name: "Timelock",
+    network: "mainnet",
+    abi: "/Users/dennisonbertram/Develop/auto-ponder/abis/Timelock.json",
+    filter: {
+      event: parseAbiItem("event CallSalt(bytes32 indexed id, bytes32 salt)")
+    }
+  },
+  {
+    name: "Timelock",
+    network: "mainnet",
+    abi: "/Users/dennisonbertram/Develop/auto-ponder/abis/Timelock.json",
+    filter: {
+      event: parseAbiItem("event CallScheduled(bytes32 indexed id, uint256 indexed index, address target, uint256 value, bytes data, bytes32 predecessor, uint256 delay)")
+    }
+  },
+  {
+    name: "Timelock",
+    network: "mainnet",
+    abi: "/Users/dennisonbertram/Develop/auto-ponder/abis/Timelock.json",
+    filter: {
+      event: parseAbiItem("event Cancelled(bytes32 indexed id)")
+    }
+  },
+  {
+    name: "Timelock",
+    network: "mainnet",
+    abi: "/Users/dennisonbertram/Develop/auto-ponder/abis/Timelock.json",
+    filter: {
+      event: parseAbiItem("event MinDelayChange(uint256 oldDuration, uint256 newDuration)")
+    }
+  },
+  {
+    name: "Timelock",
+    network: "mainnet",
+    abi: "/Users/dennisonbertram/Develop/auto-ponder/abis/Timelock.json",
+    filter: {
+      event: parseAbiItem("event RoleAdminChanged(bytes32 indexed role, bytes32 indexed previousAdminRole, bytes32 indexed newAdminRole)")
+    }
+  },
+  {
+    name: "Timelock",
+    network: "mainnet",
+    abi: "/Users/dennisonbertram/Develop/auto-ponder/abis/Timelock.json",
+    filter: {
+      event: parseAbiItem("event RoleGranted(bytes32 indexed role, address indexed account, address indexed sender)")
+    }
+  },
+  {
+    name: "Timelock",
+    network: "mainnet",
+    abi: "/Users/dennisonbertram/Develop/auto-ponder/abis/Timelock.json",
+    filter: {
+      event: parseAbiItem("event RoleRevoked(bytes32 indexed role, address indexed account, address indexed sender)")
+    }
+  },
   ]
 };

@@ -1,6 +1,6 @@
 // eventHandlers.ts
 import { ponder } from "@/generated";
-import { createCommonEntities } from "../utils"; // Adjust the import path as necessary
+import { createCommonEntities } from "../../utils"; // Adjust the import path as necessary
 
 export function registerVotingPeriodSet() {
 

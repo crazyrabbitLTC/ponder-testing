@@ -193,7 +193,7 @@ type VotingPeriodSet_EVENT @entity {
 }
 
 
-# AllEvents.graphql
+# ERC20 EVENTS --> START
 
 type Approval_EVENT @entity {
   id: String!
@@ -256,6 +256,92 @@ type Transfer_EVENT @entity {
 type Unpaused_EVENT @entity {
   id: String!
   account: Address!
+  block: Block_entry!
+  transaction: Transaction_entry!
+  log: Log_entry!
+}
+
+
+# ERC20 EVENTS --> END
+
+# TIMELOCK EVENTS --> START
+type CallExecuted @entity {
+  id: String!
+  callId: Bytes!
+  index: BigInt!
+  target: Address!
+  value: BigInt!
+  data: Bytes!
+  block: Block_entry!
+  transaction: Transaction_entry!
+  log: Log_entry!
+}
+
+type CallSalt @entity {
+  id: String!
+  callId: Bytes!
+  salt: Bytes!
+  block: Block_entry!
+  transaction: Transaction_entry!
+  log: Log_entry!
+}
+
+type CallScheduled @entity {
+  id: String!
+  callId: Bytes!
+  index: BigInt!
+  target: Address!
+  value: BigInt!
+  data: Bytes!
+  predecessor: Bytes!
+  delay: BigInt!
+  block: Block_entry!
+  transaction: Transaction_entry!
+  log: Log_entry!
+}
+
+type Cancelled @entity {
+  id: String!
+  callId: Bytes!
+  block: Block_entry!
+  transaction: Transaction_entry!
+  log: Log_entry!
+}
+
+type MinDelayChange @entity {
+  id: String!
+  oldDuration: BigInt!
+  newDuration: BigInt!
+  block: Block_entry!
+  transaction: Transaction_entry!
+  log: Log_entry!
+}
+
+type RoleAdminChanged @entity {
+  id: String!
+  role: Bytes!
+  previousAdminRole: Bytes!
+  newAdminRole: Bytes!
+  block: Block_entry!
+  transaction: Transaction_entry!
+  log: Log_entry!
+}
+
+type RoleGranted @entity {
+  id: String!
+  role: Bytes!
+  account: Address!
+  sender: Address!
+  block: Block_entry!
+  transaction: Transaction_entry!
+  log: Log_entry!
+}
+
+type RoleRevoked @entity {
+  id: String!
+  role: Bytes!
+  account: Address!
+  sender: Address!
   block: Block_entry!
   transaction: Transaction_entry!
   log: Log_entry!
