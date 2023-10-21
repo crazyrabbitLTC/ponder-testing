@@ -1,17 +1,12 @@
-type ExampleEntity @entity {
-  id: String!
-  name: String!
-}
-
 type Block_entry @entity {
   id: String! # Globally unique identifier
-  baseFeePerGas: BigInt!
+  baseFeePerGas: BigInt
   extraData: Bytes!
   gasLimit: BigInt!
   gasUsed: BigInt!
   hash: String!
   logsBloom: Bytes!
-  miner: Address!
+  miner: String!
   number: BigInt!
   parentHash: String!
   receiptsRoot: Bytes!
@@ -21,7 +16,7 @@ type Block_entry @entity {
   totalDifficulty: BigInt!
   transactionsRoot: String!
   transactions: [Transaction_entry!]! @derivedFrom(field: "block")
-  events: [Event_entry!]! @derivedFrom(field: "block")
+  # events: [Event_entry!]! @derivedFrom(field: "block")
 }
 
 type Transaction_entry @entity {
@@ -38,11 +33,16 @@ type Transaction_entry @entity {
   maxFeePerGas: BigInt
   maxPriorityFeePerGas: BigInt
   nonce: Int!
-  to: Address
+  to: Address!
   transactionIndex: Int!
   value: BigInt!
   logs: [Log_entry!]! @derivedFrom(field: "transaction")
-  events: [Event_entry!]! @derivedFrom(field: "transaction")
+  # events: [Event_entry!]! @derivedFrom(field: "transaction")
+}
+
+type Address @entity {
+  id: String!
+  transactions: [Transaction_entry!]! @derivedFrom(field: "from")
 }
 
 type Log_entry @entity {
@@ -57,24 +57,24 @@ type Log_entry @entity {
   topics: [String!]!
   transactionHash: String!
   transactionIndex: Int!
-  events: [Event_entry!]! @derivedFrom(field: "log")
+  # events: [Event_entry!]! @derivedFrom(field: "log")
 }
 
-interface Event {
+# interface Event_entry {
+#   id: String!
+#   # block: Block_entry!
+#   # transaction: Transaction_entry!
+#   # log: Log_entry!
+# }
+
+type EIP712DomainChanged_EVENT @entity {
   id: String!
   block: Block_entry!
   transaction: Transaction_entry!
   log: Log_entry!
 }
 
-type EIP712DomainChanged_EVENT @entity implements Event {
-  id: String!
-  block: Block_entry!
-  transaction: Transaction_entry!
-  log: Log_entry!
-}
-
-type ProposalCanceled_EVENT @entity implements Event {
+type ProposalCanceled_EVENT @entity {
   id: String!
   block: Block_entry!
   transaction: Transaction_entry!
@@ -82,23 +82,30 @@ type ProposalCanceled_EVENT @entity implements Event {
   proposalId: BigInt!
 }
 
-type ProposalCreated_EVENT @entity implements Event {
+type ProposalCreated_EVENT @entity {
   id: String!
   block: Block_entry!
   transaction: Transaction_entry!
   log: Log_entry!
   proposalId: BigInt!
   proposer: Address!
-  targets: [Address!]!
-  values: [BigInt!]!
-  signatures: [String!]!
-  calldatas: [Bytes!]!
+  actions: [Action!]! @derivedFrom(field: "proposalId")
   voteStart: BigInt!
   voteEnd: BigInt!
   description: String!
 }
 
-type ProposalExecuted_EVENT @entity implements Event {
+type Action @entity {
+  id: String!
+  proposalId: String!
+  index: Int!
+  target: Address!
+  value: BigInt!
+  signature: String!
+  calldata: Bytes!
+}
+
+type ProposalExecuted_EVENT @entity {
   id: String!
   block: Block_entry!
   transaction: Transaction_entry!
@@ -106,7 +113,7 @@ type ProposalExecuted_EVENT @entity implements Event {
   proposalId: BigInt!
 }
 
-type ProposalQueued_EVENT @entity implements Event {
+type ProposalQueued_EVENT @entity {
   id: String!
   block: Block_entry!
   transaction: Transaction_entry!
@@ -115,7 +122,7 @@ type ProposalQueued_EVENT @entity implements Event {
   etaSeconds: BigInt!
 }
 
-type ProposalThresholdSet_EVENT @entity implements Event {
+type ProposalThresholdSet_EVENT @entity {
   id: String!
   block: Block_entry!
   transaction: Transaction_entry!
@@ -124,7 +131,7 @@ type ProposalThresholdSet_EVENT @entity implements Event {
   newProposalThreshold: BigInt!
 }
 
-type QuorumNumeratorUpdated_EVENT @entity implements Event {
+type QuorumNumeratorUpdated_EVENT @entity {
   id: String!
   block: Block_entry!
   transaction: Transaction_entry!
@@ -133,7 +140,7 @@ type QuorumNumeratorUpdated_EVENT @entity implements Event {
   newQuorumNumerator: BigInt!
 }
 
-type TimelockChange_EVENT @entity implements Event {
+type TimelockChange_EVENT @entity {
   id: String!
   block: Block_entry!
   transaction: Transaction_entry!
@@ -142,7 +149,7 @@ type TimelockChange_EVENT @entity implements Event {
   newTimelock: Address!
 }
 
-type VoteCast_EVENT @entity implements Event {
+type VoteCast_EVENT @entity {
   id: String!
   block: Block_entry!
   transaction: Transaction_entry!
@@ -154,7 +161,7 @@ type VoteCast_EVENT @entity implements Event {
   reason: String!
 }
 
-type VoteCastWithParams_EVENT @entity implements Event {
+type VoteCastWithParams_EVENT @entity {
   id: String!
   block: Block_entry!
   transaction: Transaction_entry!
@@ -167,7 +174,7 @@ type VoteCastWithParams_EVENT @entity implements Event {
   params: Bytes!
 }
 
-type VotingDelaySet_EVENT @entity implements Event {
+type VotingDelaySet_EVENT @entity {
   id: String!
   block: Block_entry!
   transaction: Transaction_entry!
@@ -176,7 +183,7 @@ type VotingDelaySet_EVENT @entity implements Event {
   newVotingDelay: BigInt!
 }
 
-type VotingPeriodSet_EVENT @entity implements Event {
+type VotingPeriodSet_EVENT @entity {
   id: String!
   block: Block_entry!
   transaction: Transaction_entry!

@@ -1,28 +1,27 @@
 import { Log, Block, Transaction,  } from "@ponder/core"
-import { Log_entity, Block_entity, Transaction_entity } from "./entities"
+import { Context, Block_entry as Block_entry_type, Log_entry as Log_entry_type, Transaction_entry as Transaction_entry_type } from "@/generated"
 
 
 interface Entity {
     create(data: object): Promise<void>;
 }
 
-interface Context {
-    entities: Record<string, Entity>;
-    contracts: Record<string, any>;
-}
+const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000"
 
 interface CreateCommonEntitiesReturnType {
-    newBlock: any; // Replace 'any' with the actual type if known
-    newTransaction: any; // Replace 'any' with the actual type if known
-    newLog: any; // Replace 'any' with the actual type if known
+    newBlock: Block_entry_type; // Replace 'any' with the actual type if known
+    newTransaction: Transaction_entry_type; // Replace 'any' with the actual type if known
+    newLog: Log_entry_type; // Replace 'any' with the actual type if known
   }
-async function createCommonEntities(event: { log: Log; block: Block; transaction: Transaction; }, context: Context): Promise<CreateCommonEntitiesReturnType> {
-    const { Log_entity, Block_entity, Transaction_entity } = context.entities;
 
-    const newBlock = await Block_entity.create({
+async function createCommonEntities(event: { log: Log; block: Block; transaction: Transaction; }, context: Context): Promise<CreateCommonEntitiesReturnType> {
+    const { Log_entry, Block_entry, Transaction_entry } = context.entities;
+
+    
+    const newBlock = await Block_entry.create({
         id: event.block.hash,
         data: {
-            baseFeePerGas: event.block.baseFeePerGas,
+            baseFeePerGas: event.block.baseFeePerGas || undefined,
             extraData: event.block.extraData,
             gasLimit: event.block.gasLimit,
             gasUsed: event.block.gasUsed,
@@ -40,12 +39,13 @@ async function createCommonEntities(event: { log: Log; block: Block; transaction
         },
     });
 
-    const newTransaction = await Transaction_entity.create({
+    const newTransaction = await Transaction_entry.create({
         id: event.transaction.hash,
         data: {
             blockHash: event.transaction.blockHash,
             blockNumber: event.transaction.blockNumber,
-            //   chainId: event.transaction.chainId, // figure out why the chainId is missing
+            block: event.block.hash,
+            // chainId: event.transaction.chainId, // figure out why the chainId is missing
             from: event.transaction.from,
             gas: event.transaction.gas,
             gasPrice: event.transaction.gasPrice,
@@ -54,13 +54,13 @@ async function createCommonEntities(event: { log: Log; block: Block; transaction
             maxFeePerGas: event.transaction.maxFeePerGas,
             maxPriorityFeePerGas: event.transaction.maxPriorityFeePerGas,
             nonce: event.transaction.nonce,
-            to: event.transaction.to,
+            to: event.transaction.to || ZERO_ADDRESS,
             transactionIndex: event.transaction.transactionIndex,
             value: event.transaction.value,
         },
     });
 
-    const newLog = await Log_entity.create({
+    const newLog = await Log_entry.create({
         id: event.log.id,
         data: {
             address: event.log.address,
@@ -72,6 +72,7 @@ async function createCommonEntities(event: { log: Log; block: Block; transaction
             topics: event.log.topics,
             transactionHash: event.log.transactionHash,
             transactionIndex: event.log.transactionIndex,
+            transaction: newTransaction.id,
         },
     });
 
