@@ -1,3 +1,10 @@
+type Address @entity {
+  id: String!
+  isContract: Boolean
+  transactions: [Transaction_entry!]! @derivedFrom(field: "from")
+}
+
+
 type Block_entry @entity {
   id: String! # Globally unique identifier
   baseFeePerGas: BigInt
@@ -40,11 +47,6 @@ type Transaction_entry @entity {
   # events: [Event_entry!]! @derivedFrom(field: "transaction")
 }
 
-type Address @entity {
-  id: String!
-  isContract: Boolean
-  transactions: [Transaction_entry!]! @derivedFrom(field: "from")
-}
 
 type Log_entry @entity {
   id: String! # Globally unique identifier (`${blockHash}-${logIndex}`)
@@ -61,15 +63,10 @@ type Log_entry @entity {
   # events: [Event_entry!]! @derivedFrom(field: "log")
 }
 
-# interface Event_entry {
-#   id: String!
-#   # block: Block_entry!
-#   # transaction: Transaction_entry!
-#   # log: Log_entry!
-# }
 
 type EIP712DomainChanged_EVENT @entity {
   id: String!
+  contract: Address!
   block: Block_entry!
   transaction: Transaction_entry!
   log: Log_entry!
@@ -77,6 +74,7 @@ type EIP712DomainChanged_EVENT @entity {
 
 type ProposalCanceled_EVENT @entity {
   id: String!
+  contract: Address
   block: Block_entry!
   transaction: Transaction_entry!
   log: Log_entry!
@@ -85,6 +83,7 @@ type ProposalCanceled_EVENT @entity {
 
 type ProposalCreated_EVENT @entity {
   id: String!
+  contract: Address
   block: Block_entry!
   transaction: Transaction_entry!
   log: Log_entry!
@@ -108,6 +107,7 @@ type Action @entity {
 
 type ProposalExecuted_EVENT @entity {
   id: String!
+  contract: Address
   block: Block_entry!
   transaction: Transaction_entry!
   log: Log_entry!
@@ -116,6 +116,7 @@ type ProposalExecuted_EVENT @entity {
 
 type ProposalQueued_EVENT @entity {
   id: String!
+  contract: Address
   block: Block_entry!
   transaction: Transaction_entry!
   log: Log_entry!
@@ -125,6 +126,7 @@ type ProposalQueued_EVENT @entity {
 
 type ProposalThresholdSet_EVENT @entity {
   id: String!
+  contract: Address
   block: Block_entry!
   transaction: Transaction_entry!
   log: Log_entry!
@@ -134,6 +136,7 @@ type ProposalThresholdSet_EVENT @entity {
 
 type QuorumNumeratorUpdated_EVENT @entity {
   id: String!
+  contract: Address
   block: Block_entry!
   transaction: Transaction_entry!
   log: Log_entry!
@@ -143,6 +146,7 @@ type QuorumNumeratorUpdated_EVENT @entity {
 
 type TimelockChange_EVENT @entity {
   id: String!
+  contract: Address
   block: Block_entry!
   transaction: Transaction_entry!
   log: Log_entry!
@@ -152,6 +156,7 @@ type TimelockChange_EVENT @entity {
 
 type VoteCast_EVENT @entity {
   id: String!
+  contract: Address
   block: Block_entry!
   transaction: Transaction_entry!
   log: Log_entry!
@@ -164,6 +169,7 @@ type VoteCast_EVENT @entity {
 
 type VoteCastWithParams_EVENT @entity {
   id: String!
+  contract: Address
   block: Block_entry!
   transaction: Transaction_entry!
   log: Log_entry!
@@ -177,6 +183,7 @@ type VoteCastWithParams_EVENT @entity {
 
 type VotingDelaySet_EVENT @entity {
   id: String!
+  contract: Address
   block: Block_entry!
   transaction: Transaction_entry!
   log: Log_entry!
@@ -186,6 +193,7 @@ type VotingDelaySet_EVENT @entity {
 
 type VotingPeriodSet_EVENT @entity {
   id: String!
+  contract: Address
   block: Block_entry!
   transaction: Transaction_entry!
   log: Log_entry!
@@ -201,6 +209,7 @@ type Approval_EVENT @entity {
   owner: Address!
   spender: Address!
   value: BigInt!
+  contract: Address
   block: Block_entry!
   transaction: Transaction_entry!
   log: Log_entry!
@@ -211,6 +220,7 @@ type DelegateChanged_EVENT @entity {
   delegator: Address!
   fromDelegate: Address!
   toDelegate: Address!
+  contract: Address
   block: Block_entry!
   transaction: Transaction_entry!
   log: Log_entry!
@@ -221,6 +231,7 @@ type DelegateVotesChanged_EVENT @entity {
   delegate: Address!
   previousVotes: BigInt!
   newVotes: BigInt!
+  contract: Address
   block: Block_entry!
   transaction: Transaction_entry!
   log: Log_entry!
@@ -231,6 +242,7 @@ type OwnershipTransferred_EVENT @entity {
   id: String!
   previousOwner: Address!
   newOwner: Address!
+  contract: Address
   block: Block_entry!
   transaction: Transaction_entry!
   log: Log_entry!
@@ -239,6 +251,7 @@ type OwnershipTransferred_EVENT @entity {
 type Paused_EVENT @entity {
   id: String!
   account: Address!
+  contract: Address
   block: Block_entry!
   transaction: Transaction_entry!
   log: Log_entry!
@@ -249,6 +262,7 @@ type Transfer_EVENT @entity {
   from: Address!
   to: Address!
   value: BigInt!
+  contract: Address
   block: Block_entry!
   transaction: Transaction_entry!
   log: Log_entry!
@@ -257,6 +271,7 @@ type Transfer_EVENT @entity {
 type Unpaused_EVENT @entity {
   id: String!
   account: Address!
+  contract: Address
   block: Block_entry!
   transaction: Transaction_entry!
   log: Log_entry!
@@ -264,6 +279,7 @@ type Unpaused_EVENT @entity {
 
 
 # ERC20 EVENTS --> END
+
 
 # TIMELOCK EVENTS --> START
 type CallExecuted @entity {
@@ -273,6 +289,7 @@ type CallExecuted @entity {
   target: Address!
   value: BigInt!
   data: Bytes!
+  contract: Address
   block: Block_entry!
   transaction: Transaction_entry!
   log: Log_entry!
@@ -282,6 +299,7 @@ type CallSalt @entity {
   id: String!
   callId: Bytes!
   salt: Bytes!
+  contract: Address
   block: Block_entry!
   transaction: Transaction_entry!
   log: Log_entry!
@@ -296,6 +314,7 @@ type CallScheduled @entity {
   data: Bytes!
   predecessor: Bytes!
   delay: BigInt!
+  contract: Address
   block: Block_entry!
   transaction: Transaction_entry!
   log: Log_entry!
@@ -304,6 +323,7 @@ type CallScheduled @entity {
 type Cancelled @entity {
   id: String!
   callId: Bytes!
+  contract: Address
   block: Block_entry!
   transaction: Transaction_entry!
   log: Log_entry!
@@ -313,6 +333,7 @@ type MinDelayChange @entity {
   id: String!
   oldDuration: BigInt!
   newDuration: BigInt!
+  contract: Address
   block: Block_entry!
   transaction: Transaction_entry!
   log: Log_entry!
@@ -323,6 +344,7 @@ type RoleAdminChanged @entity {
   role: Bytes!
   previousAdminRole: Bytes!
   newAdminRole: Bytes!
+  contract: Address
   block: Block_entry!
   transaction: Transaction_entry!
   log: Log_entry!
@@ -333,6 +355,7 @@ type RoleGranted @entity {
   role: Bytes!
   account: Address!
   sender: Address!
+  contract: Address
   block: Block_entry!
   transaction: Transaction_entry!
   log: Log_entry!
@@ -343,6 +366,7 @@ type RoleRevoked @entity {
   role: Bytes!
   account: Address!
   sender: Address!
+  contract: Address
   block: Block_entry!
   transaction: Transaction_entry!
   log: Log_entry!

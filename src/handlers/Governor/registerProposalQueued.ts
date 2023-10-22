@@ -6,7 +6,7 @@ export function registerProposalQueued() {
     ponder.on("OZGovernor:ProposalQueued", async ({ event, context }) => {
         const { ProposalQueued_EVENT, } = context.entities;
 
-        const { newBlock, newTransaction, newLog } = await createCommonEntities(event, context);
+      const { newBlock, newTransaction, newLog, sender, contract } = await createCommonEntities(event, context);
 
 
         await ProposalQueued_EVENT.create({
@@ -14,6 +14,7 @@ export function registerProposalQueued() {
             data: {
                 proposalId: event.params.proposalId,
                 etaSeconds: event.params.etaSeconds,
+                contract: contract.id,
                 block: newBlock.id,
                 transaction: newTransaction.id,
                 log: newLog.id,

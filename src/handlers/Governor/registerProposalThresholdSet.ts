@@ -7,7 +7,7 @@ export function registerProposalThresholdSet() {
 ponder.on("OZGovernor:ProposalThresholdSet", async ({ event, context }) => {
     const { ProposalThresholdSet_EVENT, } = context.entities;
   
-    const { newBlock, newTransaction, newLog } = await createCommonEntities(event, context);
+  const { newBlock, newTransaction, newLog, sender, contract } = await createCommonEntities(event, context);
   
   
     await ProposalThresholdSet_EVENT.create({
@@ -15,6 +15,7 @@ ponder.on("OZGovernor:ProposalThresholdSet", async ({ event, context }) => {
       data: {
         oldProposalThreshold: event.params.oldProposalThreshold,
         newProposalThreshold: event.params.newProposalThreshold,
+        contract: contract.id,
         block: newBlock.id,
         transaction: newTransaction.id,
         log: newLog.id,

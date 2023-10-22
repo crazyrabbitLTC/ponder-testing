@@ -4,7 +4,7 @@ import { createCommonEntities } from "../../utils";
 export function registerCallExecutedEvent() {
   ponder.on("Timelock:CallExecuted", async ({ event, context }) => {
     const { CallExecuted } = context.entities;
-    const { newBlock, newTransaction, newLog } = await createCommonEntities(event, context);
+  const { newBlock, newTransaction, newLog, sender, contract } = await createCommonEntities(event, context);
 
     await CallExecuted.create({
       id: `${event.log.id}-CallExecuted`,
@@ -14,6 +14,7 @@ export function registerCallExecutedEvent() {
         target: event.params.target,
         value: event.params.value,
         data: event.params.data,
+        contract: contract.id,
         block: newBlock.id,
         transaction: newTransaction.id,
         log: newLog.id,

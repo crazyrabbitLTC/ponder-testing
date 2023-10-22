@@ -1,5 +1,5 @@
-import { Log, Block, Transaction,  } from "@ponder/core"
-import { Context, Block_entry as Block_entry_type, Log_entry as Log_entry_type, Transaction_entry as Transaction_entry_type } from "@/generated"
+import { Log, Block, Transaction, } from "@ponder/core"
+import { Context, Block_entry as Block_entry_type, Log_entry as Log_entry_type, Transaction_entry as Transaction_entry_type, Address } from "@/generated"
 
 
 interface Entity {
@@ -12,12 +12,15 @@ interface CreateCommonEntitiesReturnType {
     newBlock: Block_entry_type; // Replace 'any' with the actual type if known
     newTransaction: Transaction_entry_type; // Replace 'any' with the actual type if known
     newLog: Log_entry_type; // Replace 'any' with the actual type if known
-  }
+    sender: Address;
+    contract: Address;
+}
 
 async function createCommonEntities(event: { log: Log; block: Block; transaction: Transaction; }, context: Context): Promise<CreateCommonEntitiesReturnType> {
     const { Log_entry, Block_entry, Transaction_entry } = context.entities;
 
-    
+    const { sender, contract } = await recordSenderAndContract(event, context);
+
     const newBlock = await Block_entry.create({
         id: event.block.hash,
         data: {
@@ -76,7 +79,47 @@ async function createCommonEntities(event: { log: Log; block: Block; transaction
         },
     });
 
-    return { newBlock, newTransaction, newLog };
+    return { newBlock, newTransaction, newLog, sender, contract };
+}
+
+export async function findOrCreateAddress(id: string, context: Context, isContract = false) {
+    const { Address } = context.entities;
+
+    const account = await Address.findUnique({ id });
+
+    if (account) {
+        return account;
+    }
+
+    return await Address.create({
+        id,
+        data: {
+            isContract: isContract,
+        },
+    });
+}
+
+export async function markAddressAsContract(address: Address, context: Context) {
+    const { Address } = context.entities;
+
+    await Address.update({
+        id: address.id,
+        data: {
+            isContract: true,
+        },
+    });
+}
+
+export async function recordSenderAndContract(event: { log: Log; block: Block; transaction: Transaction; }, context: Context) {
+    const { Address } = context.entities;
+
+    // Mark address Contract
+    const contract = await findOrCreateAddress(event.log.address, context);
+    await markAddressAsContract(contract, context);
+
+    // Create TX Sender
+    const sender = await findOrCreateAddress(event.transaction.from, context);
+    return { sender, contract };
 }
 
 export { createCommonEntities }

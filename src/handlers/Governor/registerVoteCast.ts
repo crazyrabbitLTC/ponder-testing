@@ -8,7 +8,7 @@ export function registerVoteCast() {
 ponder.on("OZGovernor:VoteCast", async ({ event, context }) => {
   const { VoteCast_EVENT, } = context.entities;
 
-  const { newBlock, newTransaction, newLog } = await createCommonEntities(event, context);
+  const { newBlock, newTransaction, newLog, sender, contract } = await createCommonEntities(event, context);
 
 
   await VoteCast_EVENT.create({
@@ -19,6 +19,7 @@ ponder.on("OZGovernor:VoteCast", async ({ event, context }) => {
       support: event.params.support,
       weight: event.params.weight,
       reason: event.params.reason,
+      contract: contract.id,
       block: newBlock.id,
       transaction: newTransaction.id,
       log: newLog.id,

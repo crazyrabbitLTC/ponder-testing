@@ -8,7 +8,7 @@ export function registerVotingPeriodSet() {
 ponder.on("OZGovernor:VotingPeriodSet", async ({ event, context }) => {
   const { VotingPeriodSet_EVENT, } = context.entities;
 
-  const { newBlock, newTransaction, newLog } = await createCommonEntities(event, context);
+  const { newBlock, newTransaction, newLog, sender, contract } = await createCommonEntities(event, context);
 
 
   await VotingPeriodSet_EVENT.create({
@@ -16,6 +16,7 @@ ponder.on("OZGovernor:VotingPeriodSet", async ({ event, context }) => {
     data: {
       oldVotingPeriod: event.params.oldVotingPeriod,
       newVotingPeriod: event.params.newVotingPeriod,
+      contract: contract.id,
       block: newBlock.id,
       transaction: newTransaction.id,
       log: newLog.id,

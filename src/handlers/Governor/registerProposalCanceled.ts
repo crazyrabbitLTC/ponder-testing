@@ -8,13 +8,15 @@ export function registerProposalCanceled() {
 ponder.on("OZGovernor:ProposalCanceled", async ({ event, context }) => {
   const { ProposalCanceled_EVENT, } = context.entities;
 
-  const { newBlock, newTransaction, newLog } = await createCommonEntities(event, context);
+  const { newBlock, newTransaction, newLog, sender, contract } = await createCommonEntities(event, context);
+
 
   await ProposalCanceled_EVENT.create({
     id: `${event.log.id}-ProposalCanceled`,
     data: {
       proposalId: event.params.proposalId,
       block: newBlock.id,
+      contract: contract.id,
       transaction: newTransaction.id,
       log: newLog.id,
     },
