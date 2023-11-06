@@ -4,7 +4,7 @@ import { createCommonEntities } from "../../utils"; // Adjust the import path as
 
 export function registerProposalCreated() {
 
-  ponder.on("OZGovernor:ProposalCreated", async ({ event, context }) => {
+  ponder.on("OZGovernorProposalCreated:ProposalCreated", async ({ event, context }) => {
     const { ProposalCreated_EVENT, Action } = context.entities;
   
   const { newBlock, newTransaction, newLog, sender, contract } = await createCommonEntities(event, context);
@@ -14,9 +14,9 @@ export function registerProposalCreated() {
       // loop through targets and create Actions for each
       const actions = event.params.targets.map((target, index) => {
         return {
-          id: `${event.params.proposalId.toString()}-ActionIndex-${index}`,
+          id: `${event.params.proposalId.toString()}-ActionIndex-${index}-Hash-${event.transaction.hash}`,
           index: index,
-          proposalId: event.params.proposalId.toString(),
+          proposalId: proposalEventId,
           target: target,
           value: event.params.values[index],
           signature: event.params.signatures[index],
@@ -29,10 +29,10 @@ export function registerProposalCreated() {
           id: action.id,
           data: {
             index: action.index,
-            proposalId: action.proposalId,
+            proposalId: action.proposalId!,
             target: action.target,
-            value: action.value,
-            signature: action.signature,
+            value: action.value || BigInt(0),
+            signature: action.signature || undefined,
             calldata: action.calldata,
           }
         });

@@ -7,7 +7,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@ponder/core": "^0.0.92",
+    "@ponder/core": "^0.0.94",
     "fs-extra": "^11.1.1"
   },
   "devDependencies": {

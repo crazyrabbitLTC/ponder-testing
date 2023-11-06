@@ -5,8 +5,9 @@ import { createCommonEntities } from "../../utils"; // Adjust the import path as
 export function registerVoteCast() {
 
 // VoteCast_EVENT
-ponder.on("OZGovernor:VoteCast", async ({ event, context }) => {
+ponder.on("OZGovernorVoteCast:VoteCast", async ({ event, context }) => {
   const { VoteCast_EVENT, } = context.entities;
+  console.log(event.params)
 
   const { newBlock, newTransaction, newLog, sender, contract } = await createCommonEntities(event, context);
 

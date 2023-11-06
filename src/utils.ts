@@ -21,63 +21,73 @@ async function createCommonEntities(event: { log: Log; block: Block; transaction
 
     const { sender, contract } = await recordSenderAndContract(event, context);
 
-    const newBlock = await Block_entry.create({
-        id: event.block.hash,
-        data: {
-            baseFeePerGas: event.block.baseFeePerGas || undefined,
-            extraData: event.block.extraData,
-            gasLimit: event.block.gasLimit,
-            gasUsed: event.block.gasUsed,
-            hash: event.block.hash,
-            logsBloom: event.block.logsBloom,
-            miner: event.block.miner,
-            number: event.block.number,
-            parentHash: event.block.parentHash,
-            receiptsRoot: event.block.receiptsRoot,
-            size: event.block.size,
-            stateRoot: event.block.stateRoot,
-            timestamp: event.block.timestamp,
-            totalDifficulty: event.block.totalDifficulty,
-            transactionsRoot: event.block.transactionsRoot,
-        },
-    });
+    let newBlock = await Block_entry.findUnique({ id: event.block.hash });
+    // check if block already exists
+    if (!newBlock) {
+        newBlock = await Block_entry.create({
+            id: event.block.hash,
+            data: {
+                baseFeePerGas: event.block.baseFeePerGas || undefined,
+                extraData: event.block.extraData,
+                gasLimit: event.block.gasLimit,
+                gasUsed: event.block.gasUsed,
+                hash: event.block.hash,
+                logsBloom: event.block.logsBloom,
+                miner: event.block.miner,
+                number: event.block.number,
+                parentHash: event.block.parentHash,
+                receiptsRoot: event.block.receiptsRoot,
+                size: event.block.size,
+                stateRoot: event.block.stateRoot,
+                timestamp: event.block.timestamp,
+                totalDifficulty: event.block.totalDifficulty,
+                transactionsRoot: event.block.transactionsRoot,
+            },
+        });
+    }
 
-    const newTransaction = await Transaction_entry.create({
-        id: event.transaction.hash,
-        data: {
-            blockHash: event.transaction.blockHash,
-            blockNumber: event.transaction.blockNumber,
-            block: event.block.hash,
-            // chainId: event.transaction.chainId, // figure out why the chainId is missing
-            from: event.transaction.from,
-            gas: event.transaction.gas,
-            gasPrice: event.transaction.gasPrice,
-            hash: event.transaction.hash,
-            input: event.transaction.input,
-            maxFeePerGas: event.transaction.maxFeePerGas,
-            maxPriorityFeePerGas: event.transaction.maxPriorityFeePerGas,
-            nonce: event.transaction.nonce,
-            to: event.transaction.to || ZERO_ADDRESS,
-            transactionIndex: event.transaction.transactionIndex,
-            value: event.transaction.value,
-        },
-    });
+    let newTransaction = await Transaction_entry.findUnique({ id: event.transaction.hash });
+    if (!newTransaction) {
+        newTransaction = await Transaction_entry.create({
+            id: event.transaction.hash,
+            data: {
+                blockHash: event.transaction.blockHash,
+                blockNumber: event.transaction.blockNumber,
+                block: event.block.hash,
+                // chainId: event.transaction.chainId, // figure out why the chainId is missing
+                from: event.transaction.from,
+                gas: event.transaction.gas,
+                gasPrice: event.transaction.gasPrice,
+                hash: event.transaction.hash,
+                input: event.transaction.input,
+                maxFeePerGas: event.transaction.maxFeePerGas,
+                maxPriorityFeePerGas: event.transaction.maxPriorityFeePerGas,
+                nonce: event.transaction.nonce,
+                to: event.transaction.to || ZERO_ADDRESS,
+                transactionIndex: event.transaction.transactionIndex,
+                value: event.transaction.value,
+            },
+        });
+    }
 
-    const newLog = await Log_entry.create({
-        id: event.log.id,
-        data: {
-            address: event.log.address,
-            blockHash: event.log.blockHash,
-            blockNumber: event.log.blockNumber,
-            data: event.log.data,
-            logIndex: event.log.logIndex,
-            removed: event.log.removed,
-            topics: event.log.topics,
-            transactionHash: event.log.transactionHash,
-            transactionIndex: event.log.transactionIndex,
-            transaction: newTransaction.id,
-        },
-    });
+    let newLog = await Log_entry.findUnique({ id: event.log.id });
+    if (!newLog) {
+        newLog = await Log_entry.create({
+            id: event.log.id,
+            data: {
+                address: event.log.address,
+                blockHash: event.log.blockHash,
+                blockNumber: event.log.blockNumber,
+                data: event.log.data,
+                logIndex: event.log.logIndex,
+                removed: event.log.removed,
+                topics: event.log.topics,
+                transactionHash: event.log.transactionHash,
+                transactionIndex: event.log.transactionIndex,
+                transaction: newTransaction.id,
+            },
+        });
+    }
 
     return { newBlock, newTransaction, newLog, sender, contract };
 }

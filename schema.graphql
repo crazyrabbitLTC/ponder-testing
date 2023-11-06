@@ -99,10 +99,10 @@ type Action @entity {
   id: String!
   proposalId: String!
   index: Int!
-  target: Address!
+  target: Address
   value: BigInt!
-  signature: String!
-  calldata: Bytes!
+  signature: String
+  calldata: Bytes
 }
 
 type ProposalExecuted_EVENT @entity {

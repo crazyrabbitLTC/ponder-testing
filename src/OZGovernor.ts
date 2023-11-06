@@ -19,25 +19,25 @@ import { registerOwnershipTransferredEvent } from "./handlers/ERC20/registerOwne
 import { registerPausedEvent } from "./handlers/ERC20/registerPaused";
 
 
-// Governor
-registerProposalExecutedEvent();
-registerProposalQueued();
-registerProposalThresholdSet();
-registerQuorumNumeratorUpdated();
-registerTimelockChange();
-registerVoteCast();
-registerVoteCastWithParams();
-registerVotingDelaySet();
-registerVotingPeriodSet();
-registerEIP712DomainChanged();
-registerProposalCanceled();
+// // Governor
+// registerProposalExecutedEvent();
+// registerProposalQueued();
+// registerProposalThresholdSet();
+// registerQuorumNumeratorUpdated();
+// registerTimelockChange();
+// registerVoteCast();
+// registerVoteCastWithParams();
+// registerVotingDelaySet();
+// registerVotingPeriodSet();
+// registerEIP712DomainChanged();
+// registerProposalCanceled();
 registerProposalCreated();
 
 
-//ERC20Votes
-registerApprovalEvent();
-registerEIP712DomainChangedEvent_ERC20();
-registerDelegateChangedEvent();
-registerDelegateVotesChangedEvent();
-registerOwnershipTransferredEvent();
-registerPausedEvent();
+// //ERC20Votes
+// registerApprovalEvent();
+// registerEIP712DomainChangedEvent_ERC20();
+// registerDelegateChangedEvent();
+// registerDelegateVotesChangedEvent();
+// registerOwnershipTransferredEvent();
+// registerPausedEvent();
