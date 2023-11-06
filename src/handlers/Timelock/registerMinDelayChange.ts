@@ -2,7 +2,7 @@ import { ponder } from "@/generated";
 import { createCommonEntities } from "../../utils";
 
 export function registerMinDelayChangeEvent() {
-  ponder.on("Timelock:MinDelayChange", async ({ event, context }) => {
+  ponder.on("Timelock_MinDelayChange:MinDelayChange", async ({ event, context }) => {
     const { MinDelayChange } = context.entities;
   const { newBlock, newTransaction, newLog, sender, contract } = await createCommonEntities(event, context);
 

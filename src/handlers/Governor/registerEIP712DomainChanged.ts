@@ -4,7 +4,7 @@ import { createCommonEntities, findOrCreateAddress, markAddressAsContract, recor
 
 export function registerEIP712DomainChanged() {
 
-  ponder.on("OZGovernor:EIP712DomainChanged", async ({ event, context }) => {
+  ponder.on("OZGovernor_EIP712DomainChanged:EIP712DomainChanged", async ({ event, context }) => {
     const { EIP712DomainChanged_EVENT, Address } = context.entities;
 
     const { newBlock, newTransaction, newLog, sender, contract } = await createCommonEntities(event, context);

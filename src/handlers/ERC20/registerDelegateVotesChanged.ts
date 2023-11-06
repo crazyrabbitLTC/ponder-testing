@@ -2,7 +2,7 @@ import { ponder } from "@/generated";
 import { createCommonEntities } from "../../utils";
 
 export function registerDelegateVotesChangedEvent() {
-  ponder.on("ERC20Votes_Ownable:DelegateVotesChanged", async ({ event, context }) => {
+  ponder.on("ERC20Votes_DelegateVotesChanged:DelegateVotesChanged", async ({ event, context }) => {
     const { DelegateVotesChanged_EVENT } = context.entities;
   const { newBlock, newTransaction, newLog, sender, contract } = await createCommonEntities(event, context);
 

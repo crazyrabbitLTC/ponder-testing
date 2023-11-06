@@ -2,7 +2,7 @@ import { ponder } from "@/generated";
 import { createCommonEntities } from "../../utils";
 
 export function registerCallScheduledEvent() {
-  ponder.on("Timelock:CallScheduled", async ({ event, context }) => {
+  ponder.on("Timelock_CallScheduled:CallScheduled", async ({ event, context }) => {
     const { CallScheduled } = context.entities;
   const { newBlock, newTransaction, newLog, sender, contract } = await createCommonEntities(event, context);
 

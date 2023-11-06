@@ -1,6 +1,9 @@
 import type { Config } from "@ponder/core";
 import { http, parseAbiItem } from "viem";
 
+
+// start of OZ: 12000583
+// testing: 18100594
 export const config: Config = {
   networks: [
     {
@@ -13,7 +16,7 @@ export const config: Config = {
   ],
   filters: [
     //   {
-    //   name: "ERC20Votes_Ownable",
+    //   name: "ERC20Votes_Approval",
     //   network: "mainnet",
     //   startBlock: 12000583,
     //   abi: "/Users/dennisonbertram/Develop/auto-ponder/abis/ERC20Votes_Ownable.json",
@@ -22,7 +25,7 @@ export const config: Config = {
     //   }
     // },
     {
-      name: "ERC20Votes_Ownable",
+      name: "ERC20Votes_DelegateChanged",
       network: "mainnet",
       startBlock:
         18100594,
@@ -32,7 +35,7 @@ export const config: Config = {
       }
     },
     {
-      name: "ERC20Votes_Ownable",
+      name: "ERC20Votes_DelegateVotesChanged",
       network: "mainnet",
       startBlock:
         18100594,
@@ -42,7 +45,7 @@ export const config: Config = {
       }
     },
     {
-      name: "ERC20Votes_Ownable",
+      name: "ERC20Votes_EIP712DomainChanged",
       network: "mainnet",
       startBlock:
         18100594,
@@ -52,7 +55,7 @@ export const config: Config = {
       }
     },
     {
-      name: "ERC20Votes_Ownable",
+      name: "ERC20Votes_OwnershipTransferred",
       network: "mainnet",
       startBlock:
         18100594,
@@ -62,7 +65,7 @@ export const config: Config = {
       }
     },
     {
-      name: "ERC20Votes_Ownable",
+      name: "ERC20Votes_Paused",
       network: "mainnet",
       startBlock:
         18100594,
@@ -72,7 +75,7 @@ export const config: Config = {
       }
     },
     // {
-    //   name: "ERC20Votes_Ownable",
+    //   name: "ERC20Votes_Transfer",
     //   network: "mainnet",
     //   startBlock: 
     // 18100594,
@@ -82,7 +85,7 @@ export const config: Config = {
     //   }
     // },
     {
-      name: "ERC20Votes_Ownable",
+      name: "ERC20Votes_Unpaused",
       network: "mainnet",
       startBlock:
         18100594,
@@ -92,7 +95,7 @@ export const config: Config = {
       }
     },
     {
-      name: "OZGovernor",
+      name: "OZGovernor_EIP712DomainChanged",
       network: "mainnet",
       startBlock:
         18100594,
@@ -102,7 +105,7 @@ export const config: Config = {
       }
     },
     {
-      name: "OZGovernor",
+      name: "OZGovernor_ProposalCanceled",
       network: "mainnet",
       startBlock:
         18100594,
@@ -112,7 +115,7 @@ export const config: Config = {
       }
     },
     {
-      name: "OZGovernorProposalCreated",
+      name: "OZGovernor_ProposalCreated",
       network: "mainnet",
       startBlock:
         18100594,
@@ -122,7 +125,7 @@ export const config: Config = {
       }
     },
     {
-      name: "OZGovernor",
+      name: "OZGovernor_ProposalExecuted",
       network: "mainnet",
       startBlock:
         18100594,
@@ -132,7 +135,7 @@ export const config: Config = {
       }
     },
     {
-      name: "OZGovernor",
+      name: "OZGovernor_ProposalQueued",
       network: "mainnet",
       startBlock:
         18100594,
@@ -142,7 +145,7 @@ export const config: Config = {
       }
     },
     {
-      name: "OZGovernor",
+      name: "OZGovernor_ProposalThresholdSet",
       network: "mainnet",
       startBlock:
         18100594,
@@ -152,7 +155,7 @@ export const config: Config = {
       }
     },
     {
-      name: "OZGovernor",
+      name: "OZGovernor_QuorumNumeratorUpdated",
       network: "mainnet",
       startBlock:
         18100594,
@@ -162,7 +165,7 @@ export const config: Config = {
       }
     },
     {
-      name: "OZGovernor",
+      name: "OZGovernor_TimelockChange",
       network: "mainnet",
       startBlock:
         18100594,
@@ -172,7 +175,7 @@ export const config: Config = {
       }
     },
     {
-      name: "OZGovernorVoteCast",
+      name: "OZGovernor_VoteCast",
       network: "mainnet",
       startBlock:
         18100594,
@@ -182,7 +185,7 @@ export const config: Config = {
       }
     },
     {
-      name: "OZGovernor",
+      name: "OZGovernor_VoteCastWithParams",
       network: "mainnet",
       startBlock:
         18100594,
@@ -192,7 +195,7 @@ export const config: Config = {
       }
     },
     {
-      name: "OZGovernor",
+      name: "OZGovernor_VotingDelaySet",
       network: "mainnet",
       startBlock:
         18100594,
@@ -202,7 +205,7 @@ export const config: Config = {
       }
     },
     {
-      name: "OZGovernor",
+      name: "OZGovernor_VotingPeriodSet",
       network: "mainnet",
       startBlock:
         18100594,
@@ -212,7 +215,7 @@ export const config: Config = {
       }
     },
     {
-      name: "Timelock",
+      name: "Timelock_CallExecuted",
       network: "mainnet",
       startBlock:
         18100594,
@@ -222,7 +225,7 @@ export const config: Config = {
       }
     },
     {
-      name: "Timelock",
+      name: "Timelock_CallSalt",
       network: "mainnet",
       startBlock:
         18100594,
@@ -232,7 +235,7 @@ export const config: Config = {
       }
     },
     {
-      name: "Timelock",
+      name: "Timelock_CallScheduled",
       network: "mainnet",
       startBlock:
         18100594,
@@ -242,7 +245,7 @@ export const config: Config = {
       }
     },
     {
-      name: "Timelock",
+      name: "Timelock_Cancelled",
       network: "mainnet",
       startBlock:
         18100594,
@@ -252,7 +255,7 @@ export const config: Config = {
       }
     },
     {
-      name: "Timelock",
+      name: "Timelock_MinDelayChange",
       network: "mainnet",
       startBlock:
         18100594,
@@ -262,7 +265,7 @@ export const config: Config = {
       }
     },
     {
-      name: "Timelock",
+      name: "Timelock_RoleAdminChanged",
       network: "mainnet",
       startBlock:
         18100594,
@@ -272,7 +275,7 @@ export const config: Config = {
       }
     },
     {
-      name: "Timelock",
+      name: "Timelock_RoleGranted",
       network: "mainnet",
       startBlock:
         18100594,
@@ -282,7 +285,7 @@ export const config: Config = {
       }
     },
     {
-      name: "Timelock",
+      name: "Timelock_RoleRevoked",
       network: "mainnet",
       startBlock:
         18100594,

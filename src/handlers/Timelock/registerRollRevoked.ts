@@ -2,7 +2,7 @@ import { ponder } from "@/generated";
 import { createCommonEntities } from "../../utils";
 
 export function registerRoleRevokedEvent() {
-  ponder.on("Timelock:RoleRevoked", async ({ event, context }) => {
+  ponder.on("Timelock_RoleRevoked:RoleRevoked", async ({ event, context }) => {
     const { RoleRevoked } = context.entities;
   const { newBlock, newTransaction, newLog, sender, contract } = await createCommonEntities(event, context);
 
